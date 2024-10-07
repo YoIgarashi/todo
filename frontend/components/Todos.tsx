@@ -1,32 +1,23 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { fetchTodos } from '../lib/api';
 import { TodoType } from '../types/Todo';
 import Todo from './Todo';
 import Link from 'next/link';
 
-// Todo一覧を表示するコンポーネント
 const Todos = () => {
-  // Todo一覧を管理するState
   const [todos, setTodos] = useState<TodoType[]>([]);
 
-  // Todo一覧を取得する関数
-  const fetchTodos = async () => {
-    // APIからTodo一覧を取得する
-    try {
-      const res = await axios.get<TodoType[]>('http://localhost:3000/todos');
-
-      // 取得したTodo一覧をStateにセットする
-      setTodos(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  // コンポーネントがマウントされたタイミングでTodo一覧を取得する
   useEffect(() => {
-    // Todo一覧を取得する関数を呼び出す
-    fetchTodos();
-  }, []);
+    const getTodos = async () => {
+      try {
+        const todosData = await fetchTodos();
+        setTodos(todosData);
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    getTodos()
+  }, [])
 
   return (
     <div className="space-y-6 w-3/4 max-w-lg pt-10">
@@ -45,4 +36,4 @@ const Todos = () => {
   );
 };
 
-export default Todos;
+export default Todos

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { fetchTodos } from '../lib/api';
 import { TodoType } from '../types/Todo';
 import Todo from './Todo';
 import Link from 'next/link';
@@ -10,22 +10,18 @@ const Todos = () => {
   const [todos, setTodos] = useState<TodoType[]>([]);
 
   // Todo一覧を取得する関数
-  const fetchTodos = async () => {
-    // APIからTodo一覧を取得する
-    try {
-      const res = await axios.get<TodoType[]>('http://localhost:3000/todos');
-
-      // 取得したTodo一覧をStateにセットする
-      setTodos(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  // コンポーネントがマウントされたタイミングでTodo一覧を取得する
   useEffect(() => {
+    const getTodos = async () => {
+      try {
+        const todosData = await fetchTodos();
+        setTodos(todosData);
+      } catch (err) {
+        console.log(err); // エラーハンドリング
+      }
+    };
+
     // Todo一覧を取得する関数を呼び出す
-    fetchTodos();
+    getTodos();
   }, []);
 
   return (

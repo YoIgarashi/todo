@@ -4,6 +4,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import Todo from '@/components/Todo';
 import { TodoType } from '@/types/Todo';
+import {fetchTodo} from '@/lib/api';
 
 const TodoDetail = () => {
   const router = useRouter()
@@ -11,22 +12,22 @@ const TodoDetail = () => {
   const [todo, setTodo] = useState<TodoType | null>()
 
   useEffect(() => {
-    const fetchTodo = async () => {
+    const getTodo= async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/todos/${id}`);
-        setTodo(res.data);
+        const todoData = await fetchTodo(Number(id))
+        setTodo(todoData)
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
     };
 
     if (id) {
-      fetchTodo();
+      getTodo()
     }
-  }, [id]);
+  }, [id])
 
   if (!todo) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
   return (
     <div className="flex justify-center items-center">

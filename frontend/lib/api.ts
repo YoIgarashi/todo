@@ -5,9 +5,19 @@ import { TodoType } from '../types/Todo';
 export const fetchTodos = async (): Promise<TodoType[]> => {
   try {
     const res = await axios.get<TodoType[]>('http://localhost:3000/todos');
-    return res.data; // Todo一覧を返す
+    return res.data
   } catch (err) {
     console.error('Error fetching todos:', err);
-    throw err; // エラーを再スローして呼び出し元でハンドリング
+    throw err
   }
-};
+}
+
+export const fetchTodo = async (id: number): Promise<TodoType> => {
+  try {
+    const res = await axios.get<TodoType>(`http://localhost:3000/todos/${id}`)
+    return res.data
+  } catch (err) {
+    console.error('Error fetching todo:', err);
+    throw err
+  }
+}

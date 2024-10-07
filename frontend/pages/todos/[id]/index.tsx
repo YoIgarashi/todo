@@ -12,9 +12,14 @@ const TodoDetail = () => {
   const [todo, setTodo] = useState<TodoType | null>()
 
   useEffect(() => {
+
+    const todoId = Number(id);
+    if (isNaN(todoId)) {
+      throw new Error("Invalid ID format");
+    }
     const getTodo= async () => {
       try {
-        const todoData = await fetchTodo(Number(id))
+        const todoData = await fetchTodo(todoId)
         setTodo(todoData)
       } catch (err) {
         console.log(err)

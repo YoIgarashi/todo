@@ -4,25 +4,20 @@ import { TodoType } from '../types/Todo';
 import Todo from './Todo';
 import Link from 'next/link';
 
-// Todo一覧を表示するコンポーネント
 const Todos = () => {
-  // Todo一覧を管理するState
   const [todos, setTodos] = useState<TodoType[]>([]);
 
-  // Todo一覧を取得する関数
   useEffect(() => {
     const getTodos = async () => {
       try {
         const todosData = await fetchTodos();
         setTodos(todosData);
       } catch (err) {
-        console.log(err); // エラーハンドリング
+        console.log(err)
       }
-    };
-
-    // Todo一覧を取得する関数を呼び出す
-    getTodos();
-  }, []);
+    }
+    getTodos()
+  }, [])
 
   return (
     <div className="space-y-6 w-3/4 max-w-lg pt-10">
@@ -41,4 +36,4 @@ const Todos = () => {
   );
 };
 
-export default Todos;
+export default Todos

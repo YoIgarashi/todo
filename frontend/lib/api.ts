@@ -12,6 +12,7 @@ export const fetchTodos = async (): Promise<TodoType[]> => {
   }
 }
 
+// Todo詳細を取得する関数
 export const fetchTodo = async (id: number): Promise<TodoType> => {
   try {
     const res = await axios.get<TodoType>(`http://localhost:3000/todos/${id}`)

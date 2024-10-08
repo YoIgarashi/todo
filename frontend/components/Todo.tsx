@@ -1,4 +1,4 @@
-import { TodoType } from '../types/Todo';
+import { TodoType } from "../types/Todo"
 
 // Todo一つを表示するコンポーネント
 const Todo = ({ todo }: { todo: TodoType }) => {
@@ -14,10 +14,12 @@ const Todo = ({ todo }: { todo: TodoType }) => {
         </div>
       </div>
       <div className="px-2">
-        <p className="focus:outline-none text-sm leading-5 py-4 text-gray-600">{todo.content}</p>
+        <p className="focus:outline-none text-sm leading-5 py-4 text-gray-600">
+          {todo.content}
+        </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Todo;
+export default Todo

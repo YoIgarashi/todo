@@ -1,30 +1,29 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import axios from 'axios';
-import Link from 'next/link';
-import Todo from '@/components/Todo';
-import { TodoType } from '@/types/Todo';
-import {fetchTodo} from '@/lib/api';
+import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
+import axios from "axios"
+import Link from "next/link"
+import Todo from "@/components/Todo"
+import { TodoType } from "@/types/Todo"
+import { fetchTodo } from "@/lib/api"
 
 const TodoDetail = () => {
   const router = useRouter()
-  const { id } = router.query;
+  const { id } = router.query
   const [todo, setTodo] = useState<TodoType | null>()
 
   useEffect(() => {
-
-    const todoId = Number(id);
+    const todoId = Number(id)
     if (isNaN(todoId)) {
-      throw new Error("Invalid ID format");
+      throw new Error("Invalid ID format")
     }
-    const getTodo= async () => {
+    const getTodo = async () => {
       try {
         const todoData = await fetchTodo(todoId)
         setTodo(todoData)
       } catch (err) {
         console.log(err)
       }
-    };
+    }
 
     if (id) {
       getTodo()
@@ -52,6 +51,4 @@ const TodoDetail = () => {
   )
 }
 
-export default TodoDetail;
-
-
+export default TodoDetail
